@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const jwt_password = require("../utils/jwt_password");
+const jwt_password = require("./jwt_hash");
 
 module.exports = {
   sign(user) {

@@ -1,11 +1,8 @@
-const express = require("express");
-const router = require("./routers/routers");
-const app = express();
-const port = 3000;
+require("dotenv").config();
+const server = require("./Server");
 
-app.use(express.json());
-app.use(router);
+const port = process.env.PORT;
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

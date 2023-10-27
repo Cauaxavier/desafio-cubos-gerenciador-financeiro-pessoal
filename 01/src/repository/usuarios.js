@@ -1,5 +1,5 @@
 const { Pool } = require("pg");
-const { db } = require("../utils/postgresql_connection");
+const { db } = require("../services/conexao_postgresql");
 
 const pool = new Pool(db);
 

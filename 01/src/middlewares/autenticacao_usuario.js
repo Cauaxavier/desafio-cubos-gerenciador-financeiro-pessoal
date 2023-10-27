@@ -1,5 +1,5 @@
-const jwt_user_token = require("../data/jwt_user_token");
-const jwt_password = require("../utils/jwt_password");
+const jwt_user_token = require("../services/jwt_token_usuario");
+const jwt_password = require("../services/jwt_hash");
 
 module.exports = async function (req, res, next) {
   const bearerToken = req.headers.authorization;
