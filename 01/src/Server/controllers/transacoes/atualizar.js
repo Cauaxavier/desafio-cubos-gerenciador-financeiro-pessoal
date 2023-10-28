@@ -5,11 +5,11 @@ const atualizar = async (req, res) => {
   const { descricao, valor, data, categoria_id, tipo } = req.body;
   const transacao_id = Number(req.params.id);
 
-  if (!descricao || !valor || !data || !categoria_id || !tipo) {
-    return res.status(400).json({
-      mensagem: "Todos os campos são obrigatórios e devem ser informados.",
-    });
-  }
+  // if (!descricao || !valor || !data || !categoria_id || !tipo) {
+  //   return res.status(400).json({
+  //     mensagem: "Todos os campos são obrigatórios e devem ser informados.",
+  //   });
+  // }
 
   try {
     const transacao_usuario =
@@ -32,7 +32,7 @@ const atualizar = async (req, res) => {
         .json({ mensagem: "Não existe categoria para o id informado." });
     }
 
-    if (tipo !== "entrada" && tipo !== "saida") {
+    if (tipo !== "entrada" && tipo !== "saída") {
       return res
         .status(400)
         .json({ mensagem: "O tipo só pode ser 'entrada' ou 'saida'." });

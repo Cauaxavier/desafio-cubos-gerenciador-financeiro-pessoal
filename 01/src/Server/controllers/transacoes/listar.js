@@ -2,6 +2,7 @@ const transactionsRepository = require("../../repository/transacoes");
 
 const listar = async (req, res) => {
   const { filtro } = req.query;
+
   try {
     const resultado = await transactionsRepository.listarTransacoesUsuario(
       req.userTokenID

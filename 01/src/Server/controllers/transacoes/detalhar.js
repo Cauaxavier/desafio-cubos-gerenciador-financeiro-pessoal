@@ -18,7 +18,9 @@ const detalhar = async (req, res) => {
 
     return res.status(200).json(transacao_usuario);
   } catch (error) {
-    return res.status(500).json({ mensagem: "Erro interno." });
+    return res.status(500).json({
+      mensagem: "Erro interno.",
+    });
   }
 };
 

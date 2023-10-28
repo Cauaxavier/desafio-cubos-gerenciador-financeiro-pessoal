@@ -5,11 +5,11 @@ const usersRepository = require("../../repository/usuarios");
 const login = async (req, res) => {
   const { email, senha } = req.body;
 
-  if (!email || !senha) {
-    return res
-      .status(400)
-      .json({ mensagem: "Email e senha devem ser informados." });
-  }
+  // if (!email || !senha) {
+  //   return res
+  //     .status(400)
+  //     .json({ mensagem: "Email e senha devem ser informados." });
+  // }
 
   try {
     const usuario = await usersRepository.verificarUsuario(email);
