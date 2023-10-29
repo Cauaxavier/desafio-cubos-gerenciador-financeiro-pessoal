@@ -7,6 +7,7 @@ const listar = async (req, res) => {
     const resultado = await transactionsRepository.listarTransacoesUsuario(
       req.userTokenID
     );
+
     if (filtro) {
       const categoriasFiltradas = resultado.filter((categoria) => {
         return filtro.includes(categoria.categoria_nome);
@@ -17,6 +18,7 @@ const listar = async (req, res) => {
 
     return res.status(200).json(resultado);
   } catch (error) {
+    console.log(error.message);
     return res.status(500).json({ mensagem: "Erro interno." });
   }
 };

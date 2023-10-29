@@ -10,10 +10,10 @@ const cadastrar = async (req, res) => {
   //     .json({ mensagem: "Todos os campos obrigatórios devem ser informados" });
   // }
 
-  if (tipo !== "entrada" && tipo !== "saida") {
+  if (tipo !== "entrada" && tipo !== "saída") {
     return res
       .status(400)
-      .json({ mensagem: "O tipo só pode ser 'entrada' ou 'saida'." });
+      .json({ mensagem: "O tipo só pode ser 'entrada' ou 'saída'." });
   }
 
   try {

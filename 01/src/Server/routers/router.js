@@ -27,7 +27,11 @@ router.put(
   userController.atualizar
 );
 router.get("/categoria", categoriesController.listar);
-router.get("/transacao", transactionController.listar);
+router.get(
+  "/transacao",
+  joiValidate.validarQuery(joiSchemas.filtrarTransacao),
+  transactionController.listar
+);
 router.post(
   "/transacao",
   joiValidate.validarCorpo(joiSchemas.cadastrarTransacao),
