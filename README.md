@@ -566,7 +566,6 @@ Ferramentas utilizadas no desenvolvimento do projeto.
 
 ## ✒️ Autores
 
-Mencione todos aqueles que ajudaram a levantar o projeto desde o seu início
 
 * **Flávio M. Silva** - *Projeto Curso Backend M03* - [flavioms86](https://github.com/flavioms86)
 * **Cauã Gomes Xavier** - *Projeto Curso Backend M03* - [Cauaxavier](https://github.com/Cauaxavier)
