@@ -5,12 +5,6 @@ const atualizar = async (req, res) => {
   const { descricao, valor, data, categoria_id, tipo } = req.body;
   const transacao_id = Number(req.params.id);
 
-  // if (!descricao || !valor || !data || !categoria_id || !tipo) {
-  //   return res.status(400).json({
-  //     mensagem: "Todos os campos são obrigatórios e devem ser informados.",
-  //   });
-  // }
-
   try {
     const transacao_usuario =
       await transactionsRepository.detalharTransacaoUsuario(

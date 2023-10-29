@@ -4,12 +4,6 @@ const usersRepository = require("../../repository/usuarios");
 const atualizar = async (req, res) => {
   const { nome, email, senha } = req.body;
 
-  // if (!nome || !email || !senha) {
-  //   return res
-  //     .status(400)
-  //     .json({ mensagem: "Nome, e-mail senha devem ser informados" });
-  // }
-
   try {
     const verificarEmail = await usersRepository.verificarUsuario(email);
 

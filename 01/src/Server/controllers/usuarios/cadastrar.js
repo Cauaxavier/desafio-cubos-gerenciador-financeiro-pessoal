@@ -4,12 +4,6 @@ const usersRepository = require("../../repository/usuarios");
 const cadastrar = async (req, res) => {
   const { nome, email, senha } = req.body;
 
-  // if (!nome || !email || !senha) {
-  //   return res
-  //     .status(400)
-  //     .json({ mensagem: "Por favor informe todos os campos." });
-  // }
-
   try {
     const resultado = await usersRepository.verificarUsuario(email);
 

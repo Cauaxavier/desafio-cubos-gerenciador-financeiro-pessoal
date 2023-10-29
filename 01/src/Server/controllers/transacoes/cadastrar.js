@@ -4,12 +4,6 @@ const transactionsRepository = require("../../repository/transacoes");
 const cadastrar = async (req, res) => {
   const { tipo, descricao, valor, data, categoria_id } = req.body;
 
-  // if (!tipo || !descricao || !valor || !data || !categoria_id) {
-  //   return res
-  //     .status(400)
-  //     .json({ mensagem: "Todos os campos obrigatórios devem ser informados" });
-  // }
-
   if (tipo !== "entrada" && tipo !== "saída") {
     return res
       .status(400)
