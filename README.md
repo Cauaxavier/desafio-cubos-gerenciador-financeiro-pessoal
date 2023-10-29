@@ -547,7 +547,31 @@ Obs.: Retorno resumido para fins de demonstração):
 ```
 
 ---
+### ⌨️ Ajustes e melhorias
 
-**LEMBRE-SE**: Feito é melhor que perfeito!!!
+O projeto poderá ter novos recursos e melhorias como:
 
-###### tags: `back-end` `módulo 3` `nodeJS` `PostgreSQL` `API REST` `desafio`
+- [ ] Adicionar Knex para gestão do banco de dados e das queries;
+- [ ] Adicionar testes com a ferramenta Jest;
+- [ ] Nova tarefa a ser definida.
+- [ ] Nova tarefa a ser definida.
+- [ ] Nova tarefa a ser definida.
+
+## 🛠️ Construído com
+
+Ferramentas utilizadas no desenvolvimento do projeto.
+
+* [Node.js](https://nodejs.org/en) - Javascript runtime environment
+* [Express](https://expressjs.com/pt-br/) - Framework para aplicação Web do Node.js
+
+## ✒️ Autores
+
+Mencione todos aqueles que ajudaram a levantar o projeto desde o seu início
+
+* **Flávio M. Silva** - *Projeto Curso Backend M03* - [flavioms86](https://github.com/flavioms86)
+* **Cauã Gomes Xavier** - *Projeto Curso Backend M03* - [Cauaxavier](https://github.com/Cauaxavier)
+
+## 📄 Licença
+
+Não se aplica.
+
