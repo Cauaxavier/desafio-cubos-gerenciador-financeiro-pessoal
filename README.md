@@ -1,16 +1,7 @@
-![](https://i.imgur.com/xG74tOh.png)
+# API RESTful - Gerenciador Financeiro Pessoal - DINDIN
 
-# Desafio Módulo 3 - Backend
 
-## Como entregar?
-
-- [ ] Faça o fork desse repositório para o seu GitHub
-- [ ] Clone o seu repositório em sua máquina
-- [ ] Desenvolva seu projeto, fazendo commits a cada alteração e push
-- [ ] Crie um PR (pull request)
-- [ ] Envie o link do pull request que você criou na plataforma da Cubos
-
-### ⚠️ Importante: Se o pull request não for criado e enviado na plataforma o feedback não será fornecido e constará como não entregue
+# Desafio Módulo 3 do curso de Desenvolvimento de Software com foco em backend da Cubos Academy.
 
 ## Descrição do desafio
 
@@ -29,97 +20,61 @@ Seu papel é construir uma RESTful API que permita:
 - Obter extrato de transações
 - [Extra] Filtrar transações por categoria
 
-**Importante: Lembre-se sempre que cada usuário só pode ver e manipular seus próprios dados e suas próprias transações. Não atender a este pré-requisito é uma falha de segurança gravíssima!**
+## 🚀 Começando
 
-**Importante 2: O diretório ".github" e seu conteúdo não podem ser alterados e muito menos excluídos**
+Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e testes.
 
-**Importante 3: Sempre que a validação de uma requisição falhar, responda com código de erro e mensagem adequada à situação, ok?**
+### 📋 Pré-requisitos
 
-**Importante 4: O link de acesso a esta API se encontra no final deste README. Este link é somente para testes!**
+Antes de executar este projeto no seu computador, você precisará de alguns pacotes instalados como:
 
-**Exemplo:**
-
-```javascript
-// Quando é informado um id de transação que não existe:
-// HTTP Status 404
-{
-    "mensagem": "Transação não encontrada!"
-}
+```
+Node.js - Para executar os códigos Javascript fora do navegador;
+Express - Pacote do Node.js para subir um servidor http localmente;
+Bcrypt - Para criar as hashs das senhas dos usuários;
+jsonwebtoken - Pacote usado para gerenciar o login do usuário via token;
+Joi - Validar corpo da requisição, além de parâmetros de consulta e de url;
+pg - Biblioteca PostgreSQL;
+dotenv - Para configurar as variáveis de ambiente;
+Insomnia ou Postman - Para testar a API com requisições via GET, POST, PUT e DELETE.
 ```
 
-## **Banco de dados**
+### 🔧 Instalação
 
-Você precisa criar um Banco de Dados PostgreSQL chamado `dindin` contendo as seguintes tabelas e colunas:  
-**ATENÇÃO! Os nomes das tabelas e das colunas a serem criados devem seguir exatamente os nomes listados abaixo.**
 
-- usuarios
-  - id
-  - nome
-  - email (campo único)
-  - senha
-- categorias
-  - id
-  - descricao
-- transacoes
-  - id
-  - descricao
-  - valor
-  - data
-  - categoria_id
-  - usuario_id
-  - tipo
+Para executar o projeto no seu ambiente de desenvolvimento em execução, primeiramente faça o clone desse repositório em sua maquina local na pasta desejada:
 
-**IMPORTANTE: Deverá ser criado no projeto o(s) arquivo(s) SQL que deverá ser o script que cria as tabelas corretamente.**
-
-As categorias a seguir precisam ser previamente cadastradas para que sejam listadas no endpoint de listagem das categorias.
-
-## **Categorias**
-
-- Alimentação
-- Assinaturas e Serviços
-- Casa
-- Mercado
-- Cuidados Pessoais
-- Educação
-- Família
-- Lazer
-- Pets
-- Presentes
-- Roupas
-- Saúde
-- Transporte
-- Salário
-- Vendas
-- Outras receitas
-- Outras despesas
-
-**IMPORTANTE: Deverá ser criado no projeto o arquivo SQL que deverá ser o script de inserção das categorias acima na tabela.**
-
-## **Requisitos obrigatórios**
-
-- A API a ser criada deverá acessar o banco de dados a ser criado "dindin" para persistir e manipular os dados de usuários, categorias e transações utilizados pela aplicação.
-- O campo `id` das tabelas no banco de dados deve ser auto incremento, chave primária e não deve permitir edição uma vez criado.
-- Seu código deverá estar organizado, delimitando as responsabilidades de cada arquivo adequadamente. Ou seja, é esperado que ele tenha, no mínimo:
-  - Um arquivo index.js
-  - Um arquivo conexao.js
-  - Um arquivo de rotas
-  - Um pasta com controladores
-- Qualquer valor monetário deverá ser representado em centavos (Ex.: R$ 10,00 reais = 1000)
-- Evite códigos duplicados. Antes de copiar e colar, pense se não faz sentido esse pedaço de código estar centralizado numa função.
-
-## **Status Codes**
-
-Abaixo, listamos os possíveis **_status codes_** esperados como resposta da API.
-
-```javascript
-// 200 (OK) = requisição bem sucedida
-// 201 (Created) = requisição bem sucedida e algo foi criado
-// 204 (No Content) = requisição bem sucedida, sem conteúdo no corpo da resposta
-// 400 (Bad Request) = o servidor não entendeu a requisição pois está com uma sintaxe/formato inválido
-// 401 (Unauthorized) = o usuário não está autenticado (logado)
-// 403 (Forbidden) = o usuário não tem permissão de acessar o recurso solicitado
-// 404 (Not Found) = o servidor não pode encontrar o recurso solicitado
 ```
+git clone https://github.com/flavioms86/desafio-cubos-gerenciador-financeiro-pessoal.git
+```
+
+Depois abra o projeto em seu editor de códigos, abra o terminal e digite o seguinte comando para a instalação dos pacotes e dependências necessárias:
+
+```
+npm install
+```
+
+Após a instalação, o servidor pode ser executado via nodemon (para não precisar restartar o servidor depois de alguma alteração):
+
+```
+npm run dev
+```
+
+Ou pelo node:
+
+```
+node ./src/index.js
+```
+
+O servidor estará executando localmente e aceitando requisições na porta 3000:
+
+```
+localhost:3000
+```
+
+## ⚙️ Estrutura do projeto
+
+<img src="./estrutura_projeto.png" alt="Estrutura do Projeto" width="250">
 
 ## **Endpoints**
 
@@ -127,33 +82,9 @@ Abaixo, listamos os possíveis **_status codes_** esperados como resposta da API
 
 #### `POST` `/usuario`
 
-Essa é a rota que será utilizada para cadastrar um novo usuario no sistema.
-
-- **Requisição**  
-  Sem parâmetros de rota ou de query.  
-  O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeitando estes nomes):
-
-  - nome
-  - email
-  - senha
-
-- **Resposta**  
-  Em caso de **sucesso**, deveremos enviar no corpo (body) da resposta o conteúdo do usuário cadastrado, incluindo seu respectivo `id` e excluindo a senha criptografada.
-  Em caso de **falha na validação**, a resposta deverá possuir **_status code_** apropriado, e em seu corpo (body) deverá possuir um objeto com uma propriedade **mensagem** que deverá possuir como valor um texto explicando o motivo da falha.
-
-- **REQUISITOS OBRIGATÓRIOS**
-  - Validar os campos obrigatórios:
-    - nome
-    - email
-    - senha
-  - Validar se o e-mail informado já existe
-  - Criptografar a senha antes de persistir no banco de dados
-  - Cadastrar o usuário no banco de dados
-
 #### **Exemplo de requisição**
 
 ```javascript
-// POST /usuario
 {
     "nome": "José",
     "email": "jose@email.com",
@@ -176,6 +107,13 @@ Essa é a rota que será utilizada para cadastrar um novo usuario no sistema.
 // HTTP Status 400 / 401 / 403 / 404
 {
     "mensagem": "Já existe usuário cadastrado com o e-mail informado."
+}
+```
+
+```javascript
+// HTTP Status 400 / 401 / 403 / 404
+{
+    "mensagem": "O campo senha é obrigatório."
 }
 ```
 
