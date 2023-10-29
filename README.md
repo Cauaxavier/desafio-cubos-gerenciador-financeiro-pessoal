@@ -450,47 +450,18 @@ Obs.: Retorno resumido para fins de demonstração):
 
 ### **Atualizar transação do usuário logado**
 
-#### `PUT` `/transacao/:id`
-
-Essa é a rota que será chamada quando o usuario logado quiser atualizar uma das suas transações cadastradas.  
-**Lembre-se:** Deverá ser possível atualizar **apenas** transações associadas ao próprio usuário logado, que deverá ser identificado através do ID presente no token de validação.
-
-- **Requisição**  
-  Deverá ser enviado o ID da transação no parâmetro de rota do endpoint.  
-  O corpo (body) da requisição deverá possuir um objeto com as seguintes propriedades (respeitando estes nomes):
-
-  - descricao
-  - valor
-  - data
-  - categoria_id
-  - tipo (campo que será informado se a transação corresponde a uma saída ou entrada de valores)
-
-- **Resposta**  
-  Em caso de **sucesso**, não deveremos enviar conteúdo no corpo (body) da resposta.  
-  Em caso de **falha na validação**, a resposta deverá possuir **_status code_** apropriado, e em seu corpo (body) deverá possuir um objeto com uma propriedade **mensagem** que deverá possuir como valor um texto explicando o motivo da falha.
-
-- **REQUISITOS OBRIGATÓRIOS**
-  - Validar se existe transação para o id enviado como parâmetro na rota e se esta transação pertence ao usuário logado.
-  - Validar os campos obrigatórios:
-    - descricao
-    - valor
-    - data
-    - categoria_id
-    - tipo
-  - Validar se existe categoria para o id enviado no corpo (body) da requisição.
-  - Validar se o tipo enviado no corpo (body) da requisição corresponde a palavra `entrada` ou `saida`, exatamente como descrito.
-  - Atualizar a transação no banco de dados
+#### `PUT` `/transacao/:id/atualizar`
 
 #### **Exemplo de requisição**
 
 ```javascript
-// PUT /transacao/2
+// PUT /transacao/6/atualizar
 {
-	"descricao": "Sapato amarelo",
+	"descricao": "Skate vermelho usado",
 	"valor": 15800,
 	"data": "2022-03-23 12:35:00",
 	"categoria_id": 4,
-	"tipo": "saida"
+	"tipo": "saída"
 }
 ```
 
@@ -504,7 +475,21 @@ Essa é a rota que será chamada quando o usuario logado quiser atualizar uma da
 ```javascript
 // HTTP Status 400 / 401 / 403 / 404
 {
-    "mensagem": "Todos os campos obrigatórios devem ser informados."
+    "mensagem": "Transação do usuário não encontrada."
+}
+```
+
+```javascript
+// HTTP Status 400 / 401 / 403 / 404
+{
+    "mensagem": "O campo categoria_id é obrigatório."
+}
+```
+
+```javascript
+// HTTP Status 400 / 401 / 403 / 404
+{
+    "mensagem": "O tipo só pode ser 'entrada' ou 'saida'."
 }
 ```
 
