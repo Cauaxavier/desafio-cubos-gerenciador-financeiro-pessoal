@@ -12,7 +12,7 @@ const obterExtrato = async (req, res) => {
     resultado.forEach((element) => {
       if (element.tipo === "entrada") {
         somaEntrada = element.soma;
-      } else if (element.tipo === "saida") {
+      } else if (element.tipo === "saída") {
         somaSaida = element.soma;
       }
     });
