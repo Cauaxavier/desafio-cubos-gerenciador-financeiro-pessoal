@@ -26,12 +26,6 @@ const atualizar = async (req, res) => {
         .json({ mensagem: "Não existe categoria para o id informado." });
     }
 
-    if (tipo !== "entrada" && tipo !== "saída") {
-      return res
-        .status(400)
-        .json({ mensagem: "O tipo só pode ser 'entrada' ou 'saida'." });
-    }
-
     await transactionsRepository.atualizarTransacaoUsuario(
       transacao_id,
       descricao,

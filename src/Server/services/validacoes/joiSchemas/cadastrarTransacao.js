@@ -1,10 +1,11 @@
 const joi = require("joi");
 
 const schemaCadastrarTransacao = joi.object({
-  tipo: joi.string().required().messages({
+  tipo: joi.string().required().valid("entrada", "saída").messages({
     "any.required": "O campo tipo é obrigatório",
     "string.base": "O campo tipo deve ser do tipo string",
     "string.empty": "O campo tipo é obrigatório",
+    "any.only": "O tipo deve ser 'entrada' ou 'saída'",
   }),
   descricao: joi.string().required().messages({
     "any.required": "O campo descricao é obrigatório",

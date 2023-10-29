@@ -4,12 +4,6 @@ const transactionsRepository = require("../../repository/transacoes");
 const cadastrar = async (req, res) => {
   const { tipo, descricao, valor, data, categoria_id } = req.body;
 
-  if (tipo !== "entrada" && tipo !== "saída") {
-    return res
-      .status(400)
-      .json({ mensagem: "O tipo só pode ser 'entrada' ou 'saída'." });
-  }
-
   try {
     const existeCategoria = await obterCategoria(categoria_id);
 
