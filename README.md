@@ -225,22 +225,16 @@ localhost:3000
 }
 ```
 
+```javascript
+// HTTP Status 400 / 401 / 403 / 404
+{
+    "mensagem": "O campo email é obrigatório."
+}
+```
+
 ### **Listar categorias**
 
 #### `GET` `/categoria`
-
-Essa é a rota que será chamada quando o usuario logado quiser listar todas as categorias cadastradas.
-
-- **Requisição**  
-  Sem parâmetros de rota ou de query.  
-  Não deverá possuir conteúdo no corpo (body) da requisição.
-
-- **Resposta**  
-  Em caso de **sucesso**, o corpo (body) da resposta deverá possuir um array dos objetos (categorias) encontrados.  
-  Em caso de **falha na validação**, a resposta deverá possuir **_status code_** apropriado, e em seu corpo (body) deverá possuir um objeto com uma propriedade **mensagem** que deverá possuir como valor um texto explicando o motivo da falha.
-
-- **REQUISITOS OBRIGATÓRIOS**
-  - O endpoint deverá responder com um array de todas as categorias cadastradas.
 
 #### **Exemplo de requisição**
 
@@ -250,6 +244,8 @@ Essa é a rota que será chamada quando o usuario logado quiser listar todas as 
 ```
 
 #### **Exemplos de resposta**
+
+Obs.: Retorno resumido para fins de demonstração):
 
 ```javascript
 // HTTP Status 200 / 201 / 204
@@ -262,6 +258,7 @@ Essa é a rota que será chamada quando o usuario logado quiser listar todas as 
     id: 2,
     descricao: "Mercado",
   },
+...
 ];
 ```
 
@@ -273,21 +270,6 @@ Essa é a rota que será chamada quando o usuario logado quiser listar todas as 
 ### **Listar transações do usuário logado**
 
 #### `GET` `/transacao`
-
-Essa é a rota que será chamada quando o usuario logado quiser listar todas as suas transações cadastradas.  
-**Lembre-se:** Deverão ser retornadas **apenas** transações associadas ao usuário logado, que deverá ser identificado através do ID presente no token de validação.
-
-- **Requisição**  
-  Sem parâmetros de rota ou de query.  
-  Não deverá possuir conteúdo no corpo (body) da requisição.
-
-- **Resposta**  
-  Em caso de **sucesso**, o corpo (body) da resposta deverá possuir um array dos objetos (transações) encontrados.  
-  Em caso de **falha na validação**, a resposta deverá possuir **_status code_** apropriado, e em seu corpo (body) deverá possuir um objeto com uma propriedade **mensagem** que deverá possuir como valor um texto explicando o motivo da falha.
-
-- **REQUISITOS OBRIGATÓRIOS**
-  - O usuário deverá ser identificado através do ID presente no token de validação
-  - O endpoint deverá responder com um array de todas as transações associadas ao usuário. Caso não exista nenhuma transação associada ao usuário deverá responder com array vazio.
 
 #### **Exemplo de requisição**
 
@@ -302,31 +284,87 @@ Essa é a rota que será chamada quando o usuario logado quiser listar todas as 
 // HTTP Status 200 / 201 / 204
 [
   {
-    id: 1,
-    tipo: "saida",
-    descricao: "Sapato amarelo",
-    valor: 15800,
-    data: "2022-03-23T15:35:00.000Z",
-    usuario_id: 5,
-    categoria_id: 4,
-    categoria_nome: "Roupas",
+    "id": 4,
+    "tipo": "entrada",
+    "descricao": "Salario Empresa X",
+    "valor": "300000",
+    "data": "2023-10-28T18:30:00.000Z",
+    "usuario_id": 4,
+    "categoria_id": 14,
+    "categoria_nome": "Salário"
   },
   {
-    id: 3,
-    tipo: "entrada",
-    descricao: "Salário",
-    valor: 300000,
-    data: "2022-03-24T15:30:00.000Z",
-    usuario_id: 5,
-    categoria_id: 6,
-    categoria_nome: "Salários",
+    "id": 5,
+    "tipo": "saída",
+    "descricao": "Ração Pets",
+    "valor": "1200",
+    "data": "2023-10-28T11:30:00.000Z",
+    "usuario_id": 4,
+    "categoria_id": 9,
+    "categoria_nome": "Pets"
   },
-];
+  {
+    "id": 6,
+    "tipo": "entrada",
+    "descricao": "Skate usado",
+    "valor": "3500",
+    "data": "2023-10-28T11:40:00.000Z",
+    "usuario_id": 4,
+    "categoria_id": 15,
+    "categoria_nome": "Vendas"
+  }
+]
 ```
 
 ```javascript
 // HTTP Status 200 / 201 / 204
 [];
+```
+
+### **Listar transações do usuário logado com filtros**
+
+#### `GET` `/transacao?filtro[]=Pets&filtro[]=Vendas`
+
+#### **Exemplo de requisição**
+
+```javascript
+// GET /transacao
+// Sem conteúdo no corpo (body) da requisição
+```
+
+#### **Exemplos de resposta**
+
+```javascript
+// HTTP Status 200 / 201 / 204
+[
+  {
+    "id": 5,
+    "tipo": "saída",
+    "descricao": "Ração Pets",
+    "valor": "1200",
+    "data": "2023-10-28T11:30:00.000Z",
+    "usuario_id": 4,
+    "categoria_id": 9,
+    "categoria_nome": "Pets"
+  },
+  {
+    "id": 6,
+    "tipo": "entrada",
+    "descricao": "Skate usado",
+    "valor": "3500",
+    "data": "2023-10-28T11:40:00.000Z",
+    "usuario_id": 4,
+    "categoria_id": 15,
+    "categoria_nome": "Vendas"
+  }
+]
+```
+
+```javascript
+// HTTP Status 400 / 401 / 403 / 404
+{
+    "mensagem": "O filtro de pesquisa deve ser um dos seguintes valores [Alimentação, Assinaturas e Serviços, Casa, Mercado, Cuidados Pessoais, Lazer, Pets, Presentes, Roupas, Saúde, Transporte, Salário, Vendas, Outras receitas, Outras despesas]"
+}
 ```
 
 ### **Detalhar uma transação do usuário logado**
