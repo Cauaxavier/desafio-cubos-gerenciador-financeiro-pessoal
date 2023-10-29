@@ -369,26 +369,12 @@ Obs.: Retorno resumido para fins de demonstração):
 
 ### **Detalhar uma transação do usuário logado**
 
-#### `GET` `/transacao/:id`
-
-Essa é a rota que será chamada quando o usuario logado quiser obter uma das suas transações cadastradas.  
-**Lembre-se:** Deverá ser retornado **apenas** transação associada ao usuário logado, que deverá ser identificado através do ID presente no token de validação.
-
-- **Requisição**  
-  Deverá ser enviado o ID da transação no parâmetro de rota do endpoint.  
-  O corpo (body) da requisição não deverá possuir nenhum conteúdo.
-
-- **Resposta**  
-  Em caso de **sucesso**, o corpo (body) da resposta deverá possuir um objeto que representa a transação encontrada, com todas as suas propriedades, conforme exemplo abaixo, acompanhado de **_status code_** apropriado.  
-  Em caso de **falha na validação**, a resposta deverá possuir **_status code_** apropriado, e em seu corpo (body) deverá possuir um objeto com uma propriedade **mensagem** que deverá possuir como valor um texto explicando o motivo da falha.
-
-- **REQUISITOS OBRIGATÓRIOS**
-  - Validar se existe transação para o id enviado como parâmetro na rota e se esta transação pertence ao usuário logado.
+#### `GET` `/transacao/:id/detalhar`
 
 #### **Exemplo de requisição**
 
 ```javascript
-// GET /transacao/2
+// GET /transacao/4/detalhar
 // Sem conteúdo no corpo (body) da requisição
 ```
 
@@ -397,14 +383,14 @@ Essa é a rota que será chamada quando o usuario logado quiser obter uma das su
 ```javascript
 // HTTP Status 200 / 201 / 204
 {
-    "id": 3,
+    "id": 4,
     "tipo": "entrada",
-    "descricao": "Salário",
-    "valor": 300000,
-    "data": "2022-03-24T15:30:00.000Z",
-    "usuario_id": 5,
-    "categoria_id": 6,
-    "categoria_nome": "Salários",
+    "descricao": "Salario Empresa X",
+    "valor": "300000",
+    "data": "2023-10-28T18:30:00.000Z",
+    "usuario_id": 4,
+    "categoria_id": 14,
+    "categoria_nome": "Salário"
 }
 ```
 
@@ -415,37 +401,16 @@ Essa é a rota que será chamada quando o usuario logado quiser obter uma das su
 }
 ```
 
+```javascript
+// HTTP Status 400 / 401 / 403 / 404
+{
+    "mensagem": "A id da transação deve ser do tipo numérico."
+}
+```
+
 ### **Cadastrar transação para o usuário logado**
 
 #### `POST` `/transacao`
-
-Essa é a rota que será utilizada para cadastrar uma transação associada ao usuário logado.  
-**Lembre-se:** Deverá ser possível cadastrar **apenas** transações associadas ao próprio usuário logado, que deverá ser identificado através do ID presente no token de validação.
-
-- **Requisição**  
-  Sem parâmetros de rota ou de query.  
-  O corpo (body) da requisição deverá possuir um objeto com as seguintes propriedades (respeitando estes nomes):
-
-  - descricao
-  - valor
-  - data
-  - categoria_id
-  - tipo (campo que será informado se a transação corresponde a uma saída ou entrada de valores)
-
-- **Resposta**
-  Em caso de **sucesso**, deveremos enviar, no corpo (body) da resposta, as informações da transação cadastrada, incluindo seu respectivo `id`.  
-  Em caso de **falha na validação**, a resposta deverá possuir **_status code_** apropriado, e em seu corpo (body) deverá possuir um objeto com uma propriedade **mensagem** que deverá possuir como valor um texto explicando o motivo da falha.
-
-- **REQUISITOS OBRIGATÓRIOS**
-  - Validar os campos obrigatórios:
-    - descricao
-    - valor
-    - data
-    - categoria_id
-    - tipo
-  - Validar se existe categoria para o id enviado no corpo (body) da requisição.
-  - Validar se o tipo enviado no corpo (body) da requisição corresponde a palavra `entrada` ou `saida`, exatamente como descrito.
-  - Cadastrar a transação associada ao usuário logado.
 
 #### **Exemplo de requisição**
 
@@ -453,10 +418,10 @@ Essa é a rota que será utilizada para cadastrar uma transação associada ao u
 // POST /transacao
 {
     "tipo": "entrada",
-    "descricao": "Salário",
+    "descricao": "Salário Empresa X",
     "valor": 300000,
-    "data": "2022-03-24T15:30:00.000Z",
-    "categoria_id": 6
+    "data": "2023-10-28T18:30:00.000Z",
+    "categoria_id": 14
 }
 ```
 
@@ -465,13 +430,13 @@ Essa é a rota que será utilizada para cadastrar uma transação associada ao u
 ```javascript
 // HTTP Status 200 / 201 / 204
 {
-    "id": 3,
+    "id": 4,
     "tipo": "entrada",
-    "descricao": "Salário",
+    "descricao": "Salário Empresa X",
     "valor": 300000,
-    "data": "2022-03-24T15:30:00.000Z",
-    "usuario_id": 5,
-    "categoria_id": 6,
+    "data": "2023-10-28T18:30:00.000Z",
+    "usuario_id": 4,
+    "categoria_id": 14,
     "categoria_nome": "Salários",
 }
 ```
@@ -479,7 +444,7 @@ Essa é a rota que será utilizada para cadastrar uma transação associada ao u
 ```javascript
 // HTTP Status 400 / 401 / 403 / 404
 {
-    "mensagem": "Todos os campos obrigatórios devem ser informados."
+    "mensagem": "O Campo valor é obrigatório."
 }
 ```
 
