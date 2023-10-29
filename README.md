@@ -85,6 +85,7 @@ localhost:3000
 #### **Exemplo de requisição**
 
 ```javascript
+// POST /usuario
 {
     "nome": "José",
     "email": "jose@email.com",
@@ -121,27 +122,6 @@ localhost:3000
 
 #### `POST` `/login`
 
-Essa é a rota que permite o usuario cadastrado realizar o login no sistema.
-
-- **Requisição**  
-  Sem parâmetros de rota ou de query.  
-  O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeitando estes nomes):
-
-  - email
-  - senha
-
-- **Resposta**  
-  Em caso de **sucesso**, o corpo (body) da resposta deverá possuir um objeto com a propriedade **token** que deverá possuir como valor o token de autenticação gerado e uma propriedade **usuario** que deverá possuir as informações do usuário autenticado, exceto a senha do usuário.  
-  Em caso de **falha na validação**, a resposta deverá possuir **_status code_** apropriado, e em seu corpo (body) deverá possuir um objeto com uma propriedade **mensagem** que deverá possuir como valor um texto explicando o motivo da falha.
-
-- **REQUISITOS OBRIGATÓRIOS**
-
-  - Validar os campos obrigatórios:
-    - email
-    - senha
-  - Verificar se o e-mail existe
-  - Validar e-mail e senha
-  - Criar token de autenticação com id do usuário
 
 #### **Exemplo de requisição**
 
@@ -174,34 +154,22 @@ Essa é a rota que permite o usuario cadastrado realizar o login no sistema.
 }
 ```
 
+```javascript
+// HTTP Status 400 / 401 / 403 / 404
+{
+    "mensagem": "O campo senha é obrigatório."
+}
+```
+
 ---
 
-## **ATENÇÃO**: Todas as funcionalidades (endpoints) a seguir, a partir desse ponto, deverão exigir o token de autenticação do usuário logado, recebendo no header com o formato Bearer Token. Portanto, em cada funcionalidade será necessário validar o token informado.
+## **ATENÇÃO**: Todas as funcionalidades (endpoints) a seguir, a partir desse ponto, irão exigir o token de autenticação do usuário logado, recebendo no header com o formato Bearer Token. 
 
 ---
-
-### **Validações do token**
-
-- **REQUISITOS OBRIGATÓRIOS**
-  - Validar se o token foi enviado no header da requisição (Bearer Token)
-  - Verificar se o token é válido
-  - Consultar usuário no banco de dados pelo id contido no token informado
 
 ### **Detalhar usuário**
 
 #### `GET` `/usuario`
-
-Essa é a rota que será chamada quando o usuario quiser obter os dados do seu próprio perfil.  
-**Atenção!:** O usuário deverá ser identificado através do ID presente no token de autenticação.
-
-- **Requisição**  
-  Sem parâmetros de rota ou de query.  
-  Não deverá possuir conteúdo no corpo da requisição.
-
-- **Resposta**  
-  Em caso de **sucesso**, o corpo (body) da resposta deverá possuir um objeto que representa o usuário encontrado, com todas as suas propriedades (exceto a senha), conforme exemplo abaixo, acompanhado de **_status code_** apropriado.  
-  Em caso de **falha na validação**, a resposta deverá possuir **_status code_** apropriado, e em seu corpo (body) deverá possuir um objeto com uma propriedade **mensagem** que deverá possuir como valor um texto explicando o motivo da falha.  
-  **Dica:** neste endpoint podemos fazer uso do status code 401 (Unauthorized).
 
 #### **Exemplo de requisição**
 
@@ -224,38 +192,13 @@ Essa é a rota que será chamada quando o usuario quiser obter os dados do seu p
 ```javascript
 // HTTP Status 400 / 401 / 403 / 404
 {
-    "mensagem": "Para acessar este recurso um token de autenticação válido deve ser enviado."
+    "mensagem": "O token deve ser informado."
 }
 ```
 
 ### **Atualizar usuário**
 
 #### `PUT` `/usuario`
-
-Essa é a rota que será chamada quando o usuário quiser realizar alterações no seu próprio usuário.  
-**Atenção!:** O usuário deverá ser identificado através do ID presente no token de autenticação.
-
-- **Requisição**  
-  Sem parâmetros de rota ou de query.  
-  O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeitando estes nomes):
-
-  - nome
-  - email
-  - senha
-
-- **Resposta**  
-  Em caso de **sucesso**, não deveremos enviar conteúdo no corpo (body) da resposta.  
-  Em caso de **falha na validação**, a resposta deverá possuir **_status code_** apropriado, e em seu corpo (body) deverá possuir um objeto com uma propriedade **mensagem** que deverá possuir como valor um texto explicando o motivo da falha.
-
-- **REQUISITOS OBRIGATÓRIOS**
-  - Validar os campos obrigatórios:
-    - nome
-    - email
-    - senha
-  - Validar se o novo e-mail já existe no banco de dados para outro usuário
-    - Caso já exista o novo e-mail fornecido para outro usuário no banco de dados, a alteração não deve ser permitida (o campo de email deve ser sempre único no banco de dados)
-  - Criptografar a senha antes de salvar no banco de dados
-  - Atualizar as informações do usuário no banco de dados
 
 #### **Exemplo de requisição**
 
